@@ -6,9 +6,9 @@ package oo;
  */
 public class lift
 {
-	private floor fl = new floor();
+	protected floor fl = new floor();
 	private double clock;
-	private int dt;
+	protected int dt;
 
 	public lift()
 	{

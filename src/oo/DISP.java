@@ -9,6 +9,10 @@ public class DISP
 	private req_que req;
 	private int clock;
 
+	protected DISP()
+	{
+
+	}
 
 	public DISP(req_que req)
 	{

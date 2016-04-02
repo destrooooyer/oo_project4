@@ -7,7 +7,7 @@ package oo;
 public class req_que
 {
 	private request[] rq = new request[10000];
-	private boolean[] bo = new boolean[10000];
+	protected boolean[] bo = new boolean[10000];
 	private int n_of_request;
 
 	public int getN_of_request()
@@ -22,7 +22,7 @@ public class req_que
 
 	public void setBo(int x)    //将request[x]标记为已执行
 	{
-		bo[x]=false;
+		bo[x] = false;
 	}
 
 	public request getRequest(int x)
@@ -30,6 +30,10 @@ public class req_que
 		return rq[x];
 	}
 
+	protected req_que()
+	{
+
+	}
 
 	public req_que(String str)
 	{

@@ -6,7 +6,7 @@ package oo;
  */
 public class request
 {
-	private int type, n, t, dt;
+	protected int type, n, t, dt;
 
 	public int getN()
 	{
@@ -26,6 +26,11 @@ public class request
 	public int getDt()
 	{
 		return this.dt;
+	}
+
+	protected request()
+	{
+
 	}
 
 	public request(String str)
@@ -54,7 +59,8 @@ public class request
 							try
 							{
 								this.n = Integer.parseInt(str_tmp[i]);
-							} catch (java.lang.NumberFormatException e)
+							}
+							catch (java.lang.NumberFormatException e)
 							{
 								//exph.err(1);
 								this.n = 0;
@@ -74,7 +80,8 @@ public class request
 							try
 							{
 								this.t = Integer.parseInt(str_tmp[i]);
-							} catch (java.lang.NumberFormatException e)
+							}
+							catch (java.lang.NumberFormatException e)
 							{
 								exph.err(1);
 							}
@@ -87,7 +94,8 @@ public class request
 							try
 							{
 								this.n = Integer.parseInt(str_tmp[i]);
-							} catch (java.lang.NumberFormatException e)
+							}
+							catch (java.lang.NumberFormatException e)
 							{
 								//exph.err(1);
 								this.n = 0;
@@ -98,7 +106,8 @@ public class request
 							try
 							{
 								this.t = Integer.parseInt(str_tmp[i]);
-							} catch (java.lang.NumberFormatException e)
+							}
+							catch (java.lang.NumberFormatException e)
 							{
 								exph.err(1);
 							}
