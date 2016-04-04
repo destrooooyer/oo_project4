@@ -1,5 +1,7 @@
 package oo;
 
+import java.util.Date;
+
 /**
  * Created by DESTRooooYER on 2016/4/2.
  */
@@ -50,14 +52,20 @@ public class DISP_3 extends DISP implements Runnable
 
 			for (int i = this.req.front; i < this.req.rear; i++)
 			{
+				if(this.req.getBo(i)==false)
+					continue;
 				request_3 rq_temp = this.req.getRq(i);
 				//ER request
 				if (rq_temp.type == -1)
 				{
 					if (__lift[rq_temp.getLift_n()].pick_up(rq_temp) == 1 || __lift[rq_temp.getLift_n()].dt == 0)
 					{
+						Date now=new Date();
+						rq_temp.start_time=now.getTime();
 						__lift[rq_temp.getLift_n()].push_req(rq_temp);
+						__lift[rq_temp.getLift_n()].update_status();
 						this.req.setBo(i);
+						System.out.println("lift chosen:	" + rq_temp.getLift_n());
 					}
 					continue;
 				}
@@ -110,10 +118,13 @@ public class DISP_3 extends DISP implements Runnable
 				}
 				if (decided == 1)
 				{
+					Date now=new Date();
+					rq_temp.start_time=now.getTime();
 					__lift[lift_flag].push_req(rq_temp);
 					__lift[lift_flag].update_status();
 					this.req.setBo(i);
 					System.out.println("lift chosen:	" + lift_flag);
+					//System.out.println(this.req.front+"	"+i+"	"+this.req.rear);
 				}
 
 			}

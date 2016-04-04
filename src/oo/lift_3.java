@@ -67,8 +67,8 @@ public class lift_3 extends lift implements Runnable, _lift
 		}
 		else if (req.type == -1)    //ER request
 		{
-			if (this.dt == 1 && req.n > this.n ||
-					this.dt == -1 && req.n < this.n)
+			if (this.dt == 1 && req.n > this.fl.getN() ||
+					this.dt == -1 && req.n < this.fl.getN())
 				return 1;
 			else
 				return 0;
@@ -111,9 +111,9 @@ public class lift_3 extends lift implements Runnable, _lift
 				}
 			}
 		}
-		System.out.println("update_status:dt:	"+this.dt);
+		System.out.println("update_status:dt:	" + this.dt);
 
-		System.out.println("update_status:n:	"+this.n);
+		System.out.println("update_status:n:	" + this.n);
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class lift_3 extends lift implements Runnable, _lift
 			//move up
 			if (this.n > this.fl.getN())
 			{
-				System.out.println("123");
+				//System.out.println("123");
 				try
 				{
 					Thread.sleep(3000);
@@ -156,7 +156,7 @@ public class lift_3 extends lift implements Runnable, _lift
 
 					this.fl.setN(this.fl.getN() + 1);
 					this.s += 1;
-					System.out.println("fl:	"+this.fl.getN());
+					System.out.println("fl:	" + this.fl.getN());
 
 					for (int i = this.req_q.front; i < this.req_q.rear; i++)
 					{
@@ -173,7 +173,7 @@ public class lift_3 extends lift implements Runnable, _lift
 				{
 					this.fl.setN(this.fl.getN() + 1);
 					this.s += 1;
-					System.out.println("fl:	"+this.fl.getN());
+					System.out.println("fl:	" + this.fl.getN());
 				}
 			}
 			//move down
@@ -284,7 +284,8 @@ public class lift_3 extends lift implements Runnable, _lift
 		else
 			direction = "STAY";
 		Date now = new Date();
-		long clk = now.getTime() / 100 - this.time0;
+		double clk = ((double) (now.getTime() / 100 - this.time0 / 100)) / 10;
+		//System.out.println(now.getTime()-req.start_time);
 		System.out.println("(#" + (this.lift_number + 1) + "," + this.fl.getN() + "," + direction + "," + this.s + "," + String.valueOf(clk) + ")");
 	}
 

@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 public class request_3 extends request
 {
 	private int lift_n;
+	protected long start_time;
 
 	public request_3()
 	{
@@ -15,6 +16,7 @@ public class request_3 extends request
 		this.t = 0;
 		this.type = 0;
 		this.dt = 0;
+		this.start_time = 0;
 	}
 
 	public int check()
@@ -29,10 +31,8 @@ public class request_3 extends request
 		return 1;
 	}
 
-	public int get_req(String str, int clk)
+	public int get_req(String str)
 	{
-		this.t = clk;
-
 		//match FR requests
 		Pattern pt_FR;
 		pt_FR = Pattern.compile("^\\(FR,(([1-9])|(1[0-9])|20),((UP)|(DOWN))\\)$");

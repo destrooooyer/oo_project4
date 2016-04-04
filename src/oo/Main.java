@@ -92,11 +92,11 @@ public class Main
 			if (str_in.equals("end"))
 			{
 				disp.godie();
-				System.out.println("1");
+				//System.out.println("1");
 				try
 				{
 					T_disp.join();
-					System.out.println("2");
+					//System.out.println("2");
 					for (int i = 0; i < 3; i++)
 						T_lift[i].join();
 				}
@@ -105,26 +105,32 @@ public class Main
 					e.printStackTrace();
 				}
 
-				System.out.println("3");
+				//System.out.println("3");
 				break;
 			}
 
 
 			//get time
 			Date now = new Date();
-			long clk_100ms = now.getTime() / 100;
-			if (time0 == -1)
-			{
-				time0 = clk_100ms;    //set time0
-				for (int i = 0; i < 3; i++)
-					__lift[i].setTime0(time0);
-			}
+			long clk = now.getTime();
+
 			request_3 temp_req = new request_3();
-			int bo = temp_req.get_req(str_in, (int) (clk_100ms - time0));
+			int bo = temp_req.get_req(str_in);
 			if (bo == 0 || temp_req.check() == 0)    //wrong input
 				System.out.println("上条请求不符合输入要求，被忽略");
 			else
+			{
+				if (time0 == -1)
+				{
+					time0 = clk;    //set time0
+					for (int i = 0; i < 3; i++)
+						__lift[i].setTime0(time0);
+				}
+				temp_req.t = (int) (clk - time0);
+
 				disp.push_request(temp_req);
+			}
+			System.out.println(str_in);
 		}
 	}
 }
