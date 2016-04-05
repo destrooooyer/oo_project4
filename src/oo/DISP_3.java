@@ -65,7 +65,7 @@ public class DISP_3 extends DISP implements Runnable
 						__lift[rq_temp.getLift_n()].push_req(rq_temp);
 						__lift[rq_temp.getLift_n()].update_status();
 						this.req.setBo(i);
-						System.out.println("lift chosen:	" + rq_temp.getLift_n());
+//						System.out.println("lift chosen:	" + rq_temp.getLift_n());
 					}
 					continue;
 				}
@@ -123,8 +123,8 @@ public class DISP_3 extends DISP implements Runnable
 					__lift[lift_flag].push_req(rq_temp);
 					__lift[lift_flag].update_status();
 					this.req.setBo(i);
-					System.out.println("lift chosen:	" + lift_flag);
-					//System.out.println(this.req.front+"	"+i+"	"+this.req.rear);
+//					System.out.println("lift chosen:	" + lift_flag);
+//					System.out.println(this.req.front+"	"+i+"	"+this.req.rear);
 				}
 
 			}

@@ -130,7 +130,7 @@ public class Main
 
 				disp.push_request(temp_req);
 			}
-			System.out.println(str_in);
+//			System.out.println(str_in);
 		}
 	}
 }

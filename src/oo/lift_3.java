@@ -44,10 +44,38 @@ public class lift_3 extends lift implements Runnable, _lift
 		if (this.dt == 0)
 			return 0;
 
+		if (this.dt == 21)
+		{
+			if (req.getN() == this.n)
+			{
+				if (req.type == 1 && req.dt == -1)
+					return 0;
+
+				return 1;
+			}
+			else
+				return 0;
+		}
+
+		if (this.dt == -21)
+		{
+			if (req.getN() == this.n)
+			{
+				if (req.type == 1 && req.dt == 1)
+					return 0;
+
+				return 1;
+			}
+			else
+				return 0;
+		}
+
 		if (this.dt == 2)
 		{
 			if (req.getN() == this.n)
+			{
 				return 1;
+			}
 			else
 				return 0;
 		}
@@ -97,7 +125,19 @@ public class lift_3 extends lift implements Runnable, _lift
 					else if (this.req_q.getRq(i).n < this.fl.getN())
 						this.dt = -1;
 					else
-						this.dt = 2;
+					{
+						if (this.req_q.getRq(i).type == 1)
+						{
+							if (this.req_q.getRq(i).dt == 1)
+								this.dt = 21;
+							else if (this.req_q.getRq(i).dt == -1)
+								this.dt = -21;
+							else
+								exph.err(-1);
+						}
+						else
+							this.dt = 2;
+					}
 				}
 				if (this.dt == 1)
 				{
@@ -109,11 +149,23 @@ public class lift_3 extends lift implements Runnable, _lift
 					if (this.req_q.getRq(i).getN() < this.n)
 						this.n = this.req_q.getRq(i).getN();
 				}
+				if(this.dt==2)
+				{
+					if (this.req_q.getRq(i).type == 1)    //静止同楼层请求捎带同楼层FR，只捎带一个方向
+					{
+						if (this.req_q.getRq(i).dt == 1)
+							this.dt = 21;
+						else if (this.req_q.getRq(i).dt == -1)
+							this.dt = -21;
+						else
+							exph.err(-1);
+					}
+				}
 			}
 		}
-		System.out.println("update_status:dt:	" + this.dt);
-
-		System.out.println("update_status:n:	" + this.n);
+//		System.out.println("update_status:dt:	" + this.dt);
+//
+//		System.out.println("update_status:n:	" + this.n);
 	}
 
 	@Override
@@ -156,7 +208,7 @@ public class lift_3 extends lift implements Runnable, _lift
 
 					this.fl.setN(this.fl.getN() + 1);
 					this.s += 1;
-					System.out.println("fl:	" + this.fl.getN());
+//					System.out.println("fl:	" + this.fl.getN());
 
 					for (int i = this.req_q.front; i < this.req_q.rear; i++)
 					{
@@ -173,7 +225,7 @@ public class lift_3 extends lift implements Runnable, _lift
 				{
 					this.fl.setN(this.fl.getN() + 1);
 					this.s += 1;
-					System.out.println("fl:	" + this.fl.getN());
+//					System.out.println("fl:	" + this.fl.getN());
 				}
 			}
 			//move down
@@ -230,7 +282,7 @@ public class lift_3 extends lift implements Runnable, _lift
 			//no movement
 			else
 			{
-				if (this.dt == 2)
+				if (this.dt == 2 || this.dt == 21 || this.dt == -21)
 				{
 					try
 					{
@@ -286,7 +338,35 @@ public class lift_3 extends lift implements Runnable, _lift
 		Date now = new Date();
 		double clk = ((double) (now.getTime() / 100 - this.time0 / 100)) / 10;
 		//System.out.println(now.getTime()-req.start_time);
-		System.out.println("(#" + (this.lift_number + 1) + "," + this.fl.getN() + "," + direction + "," + this.s + "," + String.valueOf(clk) + ")");
+
+		String str_out = new String();
+		str_out += "(#" + (this.lift_number + 1) + "," + this.fl.getN() + "," + direction + "," + this.s + "," + String.valueOf(clk) + ")";
+		str_out += "\t完成请求：";
+
+		//System.out.print("(#" + (this.lift_number + 1) + "," + this.fl.getN() + "," + direction + "," + this.s + "," + String.valueOf(clk) + ")");
+
+		if (req.type == 1)
+		{
+			str_out += ("(FR,");
+			str_out += (req.n + ",");
+			if (req.dt == 1)
+				str_out += ("UP)");
+			else if (req.dt == -1)
+				str_out += ("DOWN)");
+			else
+				exph.err(-1);
+			System.out.println(str_out);
+		}
+		else if (req.type == -1)
+		{
+			str_out += ("(ER,#");
+			str_out += (req.getLift_n() + 1 + ",");
+			str_out += (req.n + ")");
+			System.out.println(str_out);
+		}
+		else
+			exph.err(-1);
+
 	}
 
 	@Override
