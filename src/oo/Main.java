@@ -83,7 +83,7 @@ public class Main
 		}
 
 		//main loop
-		while (true)
+		while (sc.hasNextLine())
 		{
 			//input request
 			str_in = sc.nextLine();
@@ -91,19 +91,19 @@ public class Main
 			//end?
 			if (str_in.equals("end"))
 			{
-				disp.godie();
-				//System.out.println("1");
-				try
-				{
-					T_disp.join();
-					//System.out.println("2");
-					for (int i = 0; i < 3; i++)
-						T_lift[i].join();
-				}
-				catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
+//				disp.godie();
+//				//System.out.println("1");
+//				try
+//				{
+//					T_disp.join();
+//					//System.out.println("2");
+//					for (int i = 0; i < 3; i++)
+//						T_lift[i].join();
+//				}
+//				catch (InterruptedException e)
+//				{
+//					e.printStackTrace();
+//				}
 
 				//System.out.println("3");
 				break;
@@ -131,6 +131,20 @@ public class Main
 				disp.push_request(temp_req);
 			}
 //			System.out.println(str_in);
+		}
+		System.out.println("等待其他线程结束ing...");
+		disp.godie();
+		//System.out.println("1");
+		try
+		{
+			T_disp.join();
+			//System.out.println("2");
+			for (int i = 0; i < 3; i++)
+				T_lift[i].join();
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
 		}
 	}
 }

@@ -340,7 +340,7 @@ public class lift_3 extends lift implements Runnable, _lift
 		//System.out.println(now.getTime()-req.start_time);
 
 		String str_out = new String();
-		str_out += "(#" + (this.lift_number + 1) + "," + this.fl.getN() + "," + direction + "," + this.s + "," + String.valueOf(clk) + ")";
+		str_out += "(#" + (this.lift_number + 1) + ",#" + this.fl.getN() + "," + direction + "," + this.s + "," + String.valueOf(clk) + ")";
 		str_out += "\t完成请求：";
 
 		//System.out.print("(#" + (this.lift_number + 1) + "," + this.fl.getN() + "," + direction + "," + this.s + "," + String.valueOf(clk) + ")");
